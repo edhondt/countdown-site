@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Décompte – Réinitialisé chaque 14 du mois</title>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #0d1117;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        font-size: 3rem;
+        margin: 0;
+    }
+</style>
+</head>
+<body>
+
+<div id="countdown"></div>
+
+<script>
+function getNext14th() {
+    const now = new Date();
+    let target = new Date(now.getFullYear(), now.getMonth(), 14, 0, 0, 0);
+
+    if (now > target) {
+        target = new Date(now.getFullYear(), now.getMonth() + 1, 14, 0, 0, 0);
+    }
+
+    return target;
+}
+
+function updateCountdown() {
+    const targetDate = getNext14th();
+    const now = new Date();
+    const diff = targetDate - now;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("countdown").textContent =
+        `${days}j ${hours}h ${minutes}m ${seconds}s`;
+
+    setTimeout(updateCountdown, 1000);
+}
+
+updateCountdown();
+</script>
+
+</body>
+</html>
