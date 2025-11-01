@@ -10,6 +10,14 @@
 <link rel="alternate icon" type="image/png" href="logo.png">
 
 <style>
+    /* Déclaration de la police locale */
+    @font-face {
+        font-family: 'Neue Haas Display Medium';
+        src: url('NeueHaasDisplayMediu.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
     body {
         display: flex;
         justify-content: center;
@@ -17,13 +25,14 @@
         height: 100vh;
         background: #0d1117;
         color: #fff;
-        font-family: Arial, sans-serif; /* ✅ police standard */
+        font-family: 'Neue Haas Display Medium', Arial, sans-serif; /* police intégrée */
         font-size: 5rem;
         margin: 0;
     }
 
     #countdown {
         text-align: center;
+        font-size: 8rem; /* décompte plus grand */
     }
 </style>
 </head>
