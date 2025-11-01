@@ -23,16 +23,43 @@
         align-items: center;
         height: 100vh;
         background: #ff1e00; /* ✅ fond orange */
-        color: #000; /* ✅ texte noir */
+        color: #000;
         font-family: 'Neue Haas Display Medium', Arial, sans-serif;
         font-size: 5rem;
         margin: 0;
+        overflow: hidden; /* empêche scroll si beaucoup de "14" */
+        position: relative;
+        user-select: none; /* empêche sélection du texte */
+        cursor: pointer;
     }
 
     #countdown {
         text-align: center;
         font-size: 8rem;
-        color: #000; /* ✅ décompte noir */
+        color: #000;
+    }
+
+    /* Style du "14" qui pop au clic */
+    .click-14 {
+        position: absolute;
+        font-size: 3rem;
+        font-family: 'Neue Haas Display Medium', Arial, sans-serif;
+        color: #000;
+        opacity: 1;
+        transform: scale(1);
+        animation: popFade 1.3s ease-out forwards;
+        pointer-events: none; /* évite que le span bloque les clics */
+    }
+
+    @keyframes popFade {
+        0% {
+            opacity: 1;
+            transform: scale(1);
+        }
+        100% {
+            opacity: 0;
+            transform: scale(3); /* grossit avant de disparaître */
+        }
     }
 </style>
 </head>
@@ -69,6 +96,22 @@ function updateCountdown() {
 }
 
 updateCountdown();
+
+/* ✅ effet 14 au clic */
+document.addEventListener("click", (e) => {
+    const span = document.createElement("span");
+    span.classList.add("click-14");
+    span.textContent = "14";
+
+    span.style.left = `${e.clientX}px`;
+    span.style.top = `${e.clientY}px`;
+
+    document.body.appendChild(span);
+
+    setTimeout(() => {
+        span.remove();
+    }, 1300);
+});
 </script>
 
 </body>
