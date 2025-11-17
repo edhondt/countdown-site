@@ -4,12 +4,10 @@
 <meta charset="UTF-8">
 <title>SK-torze</title>
 
-<!-- Favicon dans l’onglet du navigateur -->
 <link rel="icon" type="image/svg+xml" href="14.svg">
 <link rel="alternate icon" type="image/png" href="logo.png">
 
 <style>
-    /* Déclaration de la police locale */
     @font-face {
         font-family: 'Neue Haas Display Medium';
         src: url('NeueHaasDisplayMediu.ttf') format('truetype');
@@ -19,10 +17,11 @@
 
     body {
         display: flex;
+        flex-direction: column; /* ⬅️ pour placer le lien en dessous */
         justify-content: center;
         align-items: center;
         height: 100vh;
-        background: #000; /* ✅ fond noir */
+        background: #000;
         color: #ff1e00;
         font-family: 'Neue Haas Display Medium', Arial, sans-serif;
         font-size: 5rem;
@@ -34,17 +33,22 @@
     }
 
     #countdown {
-        text-align: center;
         font-size: 8rem;
-        color: #ff1e00; /* ✅ décompte orange */
     }
 
-    /* Style du "14" qui pop au clic */
+    #join-link {
+        margin-top: 40px;
+        font-size: 1.5rem;
+        color: #ff1e00;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
     .click-14 {
         position: absolute;
         font-size: 3rem;
         font-family: 'Neue Haas Display Medium', Arial, sans-serif;
-        color: #ff1e00; /* ✅ texte des 14 au clic en orange */
+        color: #ff1e00;
         opacity: 1;
         transform: scale(1);
         animation: popFade 1.3s ease-out forwards;
@@ -52,14 +56,8 @@
     }
 
     @keyframes popFade {
-        0% {
-            opacity: 1;
-            transform: scale(1);
-        }
-        100% {
-            opacity: 0;
-            transform: scale(3);
-        }
+        0% { opacity: 1; transform: scale(1); }
+        100% { opacity: 0; transform: scale(3); }
     }
 </style>
 </head>
@@ -67,15 +65,13 @@
 
 <div id="countdown"></div>
 
+<a id="join-link" href="movement.html">REJOIGNEZ LE MOVEMENT MAINTENANT!</a>
+
 <script>
 function getNext14th() {
     const now = new Date();
     let target = new Date(now.getFullYear(), now.getMonth(), 14, 0, 0, 0);
-
-    if (now > target) {
-        target = new Date(now.getFullYear(), now.getMonth() + 1, 14, 0, 0, 0);
-    }
-
+    if (now > target) target = new Date(now.getFullYear(), now.getMonth() + 1, 14, 0, 0, 0);
     return target;
 }
 
@@ -86,7 +82,7 @@ function updateCountdown() {
 
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const minutes = Math.floor((diff / (1000 * 1000)) % 60);
     const seconds = Math.floor((diff / 1000) % 60);
 
     document.getElementById("countdown").textContent =
@@ -97,20 +93,14 @@ function updateCountdown() {
 
 updateCountdown();
 
-/* ✅ effet 14 au clic */
 document.addEventListener("click", (e) => {
     const span = document.createElement("span");
     span.classList.add("click-14");
     span.textContent = "14";
-
     span.style.left = `${e.clientX}px`;
     span.style.top = `${e.clientY}px`;
-
     document.body.appendChild(span);
-
-    setTimeout(() => {
-        span.remove();
-    }, 1300);
+    setTimeout(() => span.remove(), 1300);
 });
 </script>
 
