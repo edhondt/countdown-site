@@ -14,27 +14,29 @@
 
 body {
     background: rgb(255, 30, 0);
-    /* Suppression de la marge pour un affichage "plein écran" */
+    /* Suppression des marges pour un affichage "plein écran" */
     margin: 0;
     padding: 0;
     line-height: 1.45;
 }
 
-/* Style de l'iframe pour qu'il prenne toute la hauteur de la fenêtre */
-.pdf-fullscreen {
+/* Style de l'image pour qu'elle prenne toute la largeur et la hauteur de la fenêtre */
+.manifeste-image {
     width: 100%;
     /* 100vh = 100% de la hauteur de la fenêtre (viewport height) */
     height: 100vh; 
-    border: none;
-    /* On retire la marge supérieure qui était présente */
-    margin-top: 0; 
-    display: block; /* Assure que l'iframe se comporte bien */
+    display: block;
+    /* 'object-fit: cover;' assure que l'image couvre entièrement la zone 
+       sans déformation, même si cela nécessite de couper légèrement les bords.
+       Utilisez 'contain' si vous voulez voir l'image entière sans rognage, 
+       mais cela pourrait laisser des bandes rouges. */
+    object-fit: cover; 
 }
 
-/* Le style pour la vidéo sera sous le PDF et nécessitera un défilement */
+/* Le conteneur de la vidéo vient après l'image et nécessitera un défilement */
 .video-container {
-    padding: 60px; /* Ajout d'un padding pour que la vidéo ne touche pas les bords */
-    background: #000000; /* Fond noir pour contraster ou le cacher */
+    padding: 60px; 
+    background: rgb(255, 30, 0); /* Laisser le fond rouge */
 }
 
 .video-element {
@@ -50,9 +52,7 @@ body {
 
 <body>
 
-<iframe src="manifeste.pdf" class="pdf-fullscreen">
-    Votre navigateur ne supporte pas l'affichage des PDF. Veuillez <a href="manifeste.pdf">télécharger le PDF</a> pour le consulter.
-</iframe>
+<img src="manifeste.jpeg" alt="Manifeste SK-TORZE" class="manifeste-image">
 
 <div class="video-container">
     <video controls class="video-element">
